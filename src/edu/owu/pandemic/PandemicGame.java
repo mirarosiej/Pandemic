@@ -1,3 +1,4 @@
+package edu.owu.pandemic;
 
 //Main Game
 public class PandemicGame{
