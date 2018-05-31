@@ -7,6 +7,6 @@ public class EpidemicCard extends Card {
     }
 
     public String getCardInfoString(){
-        return "Epidemic Card";
+        return "EpidemicCard";
     }
 }

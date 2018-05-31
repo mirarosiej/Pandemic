@@ -11,7 +11,7 @@ public class PlayerCard extends Card {
     }
 
     public String getCardInfoString(){
-        return "edu.owu.pandemic.Player card - " + city + ":" + color;
+        return "PlayerCard-" + city + ":" + color;
     }
 
     public String getColor(){

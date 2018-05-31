@@ -10,10 +10,12 @@ public class PandemicGame{
 
         gamestate.gameSetup();
 
+        ioloop(gamestate);
     }
 
-
-
+    static void ioloop(GameState gamestate){
+        //TODO
+    }
 }
 
 

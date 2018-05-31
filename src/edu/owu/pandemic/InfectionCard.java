@@ -11,7 +11,7 @@ public class InfectionCard extends Card {
     }
 
     public String getCardInfoString(){
-        return "Infection card - " + city + ":" + color;
+        return "InfectionCard-" + city + ":" + color;
     }
 
     public String getColor(){

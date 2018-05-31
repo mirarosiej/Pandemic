@@ -1,8 +1,5 @@
 package edu.owu.pandemic;
 
-import com.sun.org.apache.xpath.internal.operations.Bool;
-import com.sun.scenario.effect.impl.sw.java.JSWBlend_MULTIPLYPeer;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -91,41 +88,62 @@ public class GameState {
                     System.out.print(adj + ", ");
                 }
                 System.out.print("\n");
-                //DEBUG-START
+                //DEBUG-END
             }
         }
-
-        //DEBUG-START
-        System.out.print("\n");
-        System.out.print("Cards in the Infection deck: ");
-        infectiondeck.printAllCards();
-        System.out.print("Cards in the edu.owu.pandemic.Player deck: ");
-        playerdeck.printAllCards();
-        System.out.print("\n");
-        //DEBUG-END
-
-        playerdeck.push(new EpidemicCard());
-        playerdeck.push(new EpidemicCard());
-        playerdeck.push(new EpidemicCard());
-        playerdeck.push(new EpidemicCard());
-        playerdeck.push(new EpidemicCard());
-        playerdeck.push(new EpidemicCard());
-
 
         infectiondeck.shuffle();
         playerdeck.shuffle();
     }
 
-
     public void gameSetup(){
+        //create players
         addPlayer(Player.Role.DISPATCHER);
         addPlayer(Player.Role.MEDIC);
         addPlayer(Player.Role.PLANNER);
-        addPlayer(Player.Role.SCIENTIST);
+        //addPlayer(Player.Role.SCIENTIST);
 
         dealCards();
-        stations.add("Atlanta");
-        setupInfectedCities();
+
+        //shuffle in epidemic cards AFTER dealing cards to players
+        playerdeck.push(new EpidemicCard());
+        playerdeck.push(new EpidemicCard());
+        playerdeck.push(new EpidemicCard());
+        playerdeck.push(new EpidemicCard());
+        playerdeck.push(new EpidemicCard());
+        playerdeck.push(new EpidemicCard());
+        infectiondeck.shuffle();
+        playerdeck.shuffle();
+
+        stations.add("Atlanta"); //add research station
+
+        setupInfectedCities(); //distribute cubes
+
+        //DEBUG-START
+        System.out.print("\n");
+        System.out.print("Cards in the Infection deck: ");
+        infectiondeck.printAllCards();
+        System.out.print("Cards in the Player deck: ");
+        playerdeck.printAllCards();
+        System.out.print("\n");
+        //DEBUG-END
+
+        //DEBUG-START
+        System.out.print("Research stations are located in: ");
+        for (String station : stations){
+            System.out.print(station + ", ");
+        }
+        System.out.print("\n");
+
+        System.out.println("Players: ");
+        for (Player player: players){
+            System.out.print("   " + player.getCurrentcity() + ": ");
+            for (Card card : player.getHand()){
+                System.out.print(card.getCardInfoString() + ", ");
+            }
+            System.out.print("\n");
+        }
+        //DEBUG-END
     }
 
     public void addPlayer(Player.Role role){
@@ -135,38 +153,42 @@ public class GameState {
     }
 
     public void dealCards(){
-        int cardtodeal = 0;
+        int cardstodeal = 0;
         int playercount = players.size();
         if (playercount==2){
-            cardtodeal = 4;
+            cardstodeal = 4;
         } else if (playercount==3){
-            cardtodeal = 3;
+            cardstodeal = 3;
 
         } else if (playercount==4){
-            cardtodeal = 2;
+            cardstodeal = 2;
         } else {
             System.out.println("Bad number of players");
             assert (false);
-
         }
 
+        for (Player player : players){ //for each player
+            for (int i = 0; i < cardstodeal; i++){ //loop cardstodeal amount of times
+                player.drawCard(playerdeck);
+            }
+        }
     }
 
     public void setupInfectedCities(){
         for (int i=0; i < 3; i++){
             InfectionCard card = (InfectionCard) infectiondeck.draw();
             City city = nodes.get(card.getCity());
-            city.setcubes(3);
+            city.setCubeCount(3);
         }
         for (int i=0; i < 3; i++){
             InfectionCard card = (InfectionCard) infectiondeck.draw();
             City city = nodes.get(card.getCity());
-            city.setcubes(2);
+            city.setCubeCount(2);
         }
         for (int i=0; i < 3; i++){
             InfectionCard card = (InfectionCard) infectiondeck.draw();
             City city = nodes.get(card.getCity());
-            city.setcubes(1);
+            city.setCubeCount(1);
         }
     }
 }

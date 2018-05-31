@@ -32,7 +32,11 @@ public class City {
         return cubeCount;
     }
 
-    public void setcubes(int cubes){
+    public void setCubeCount(int cubes){
         cubeCount = cubes;
+    }
+
+    public void addCubes(int cubes){
+        cubeCount += cubes;
     }
 }
