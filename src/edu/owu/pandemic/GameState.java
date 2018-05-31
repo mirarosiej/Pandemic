@@ -16,7 +16,7 @@ public class GameState {
 
     private int outbreak = 0;
     private int infectionrateindex = 0;
-    private int[] infectiorates = new int[]{2,2,2,3,3,4,4};
+    private int[] infectionrates = new int[]{2,2,2,3,3,4,4};
     private boolean blue;
     private boolean black;
     private boolean red;
@@ -100,7 +100,7 @@ public class GameState {
         //create players
         addPlayer(Player.Role.DISPATCHER);
         addPlayer(Player.Role.MEDIC);
-        addPlayer(Player.Role.PLANNER);
+        //addPlayer(Player.Role.PLANNER);
         //addPlayer(Player.Role.SCIENTIST);
 
         dealCards();
@@ -112,7 +112,6 @@ public class GameState {
         playerdeck.push(new EpidemicCard());
         playerdeck.push(new EpidemicCard());
         playerdeck.push(new EpidemicCard());
-        infectiondeck.shuffle();
         playerdeck.shuffle();
 
         stations.add("Atlanta"); //add research station
