@@ -1,5 +1,8 @@
 package edu.owu.pandemic;
 
+import com.sun.org.apache.xpath.internal.operations.Bool;
+import com.sun.scenario.effect.impl.sw.java.JSWBlend_MULTIPLYPeer;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -9,12 +12,18 @@ import java.util.*;
 
 public class GameState {
     private HashMap<String, City> nodes = new HashMap<String, City>();
+    ArrayList<String> stations = new ArrayList<>();
     private Deck infectiondeck = new Deck();
     private Deck playerdeck = new Deck();
+    ArrayList<Player> players = new ArrayList<>();
 
     private int outbreak = 0;
     private int infectionrateindex = 0;
     private int[] infectiorates = new int[]{2,2,2,3,3,4,4};
+    private boolean blue;
+    private boolean black;
+    private boolean red;
+    private boolean yellow;
 
     //constructor
     public GameState(String info_file){
@@ -90,9 +99,74 @@ public class GameState {
         System.out.print("\n");
         System.out.print("Cards in the Infection deck: ");
         infectiondeck.printAllCards();
-        System.out.print("Cards in the Player deck: ");
+        System.out.print("Cards in the edu.owu.pandemic.Player deck: ");
         playerdeck.printAllCards();
         System.out.print("\n");
         //DEBUG-END
+
+        playerdeck.push(new EpidemicCard());
+        playerdeck.push(new EpidemicCard());
+        playerdeck.push(new EpidemicCard());
+        playerdeck.push(new EpidemicCard());
+        playerdeck.push(new EpidemicCard());
+        playerdeck.push(new EpidemicCard());
+
+
+        infectiondeck.shuffle();
+        playerdeck.shuffle();
+    }
+
+
+    public void gameSetup(){
+        addPlayer(Player.Role.DISPATCHER);
+        addPlayer(Player.Role.MEDIC);
+        addPlayer(Player.Role.PLANNER);
+        addPlayer(Player.Role.SCIENTIST);
+
+        dealCards();
+        stations.add("Atlanta");
+        setupInfectedCities();
+    }
+
+    public void addPlayer(Player.Role role){
+        Player newplayer = new Player(role);
+
+        players.add(newplayer);
+    }
+
+    public void dealCards(){
+        int cardtodeal = 0;
+        int playercount = players.size();
+        if (playercount==2){
+            cardtodeal = 4;
+        } else if (playercount==3){
+            cardtodeal = 3;
+
+        } else if (playercount==4){
+            cardtodeal = 2;
+        } else {
+            System.out.println("Bad number of players");
+            assert (false);
+
+        }
+
+    }
+
+    public void setupInfectedCities(){
+        for (int i=0; i < 3; i++){
+            InfectionCard card = (InfectionCard) infectiondeck.draw();
+            City city = nodes.get(card.getCity());
+            city.setcubes(3);
+        }
+        for (int i=0; i < 3; i++){
+            InfectionCard card = (InfectionCard) infectiondeck.draw();
+            City city = nodes.get(card.getCity());
+            city.setcubes(2);
+        }
+        for (int i=0; i < 3; i++){
+            InfectionCard card = (InfectionCard) infectiondeck.draw();
+            City city = nodes.get(card.getCity());
+            city.setcubes(1);
+        }
     }
 }

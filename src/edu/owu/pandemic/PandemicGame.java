@@ -7,7 +7,14 @@ public class PandemicGame{
         System.out.println("- Start -");
 
         GameState gamestate = new GameState("cities.txt");
+
+        gamestate.gameSetup();
+
     }
 
 
+
 }
+
+
+

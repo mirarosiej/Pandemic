@@ -20,14 +20,20 @@ public class Deck {
         return deck.remove(deck.size()-1);
     }
 
+    public Card draw(){
+        Card card = pop();
+        discard.add(card);
+        return card;
+    }
+
     //adding a card to the deck
     public void push(Card card){
         deck.add(card);
     }
 
     //used for shuffling the deck
-    public void shuffle(ArrayList<Card>List, Random rnd){
-        Collections.shuffle(List);
+    public void shuffle(){
+        Collections.shuffle(deck);
     }
 
     //used for debug - prints everything to console
@@ -39,6 +45,8 @@ public class Deck {
 
         System.out.print("\n");
     }
+
+
 }
 
 

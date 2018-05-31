@@ -6,6 +6,8 @@ public class City {
     private String name;
     private String color;
 
+    private int cubeCount = 0;
+
     private ArrayList<String> adjacent = new ArrayList<String>();
 
     public City(String cty, String clr) {
@@ -26,4 +28,11 @@ public class City {
         return new ArrayList<String>(adjacent); //copy constructor
     }
 
+    public int getCubeCount() {
+        return cubeCount;
+    }
+
+    public void setcubes(int cubes){
+        cubeCount = cubes;
+    }
 }
