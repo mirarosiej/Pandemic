@@ -29,6 +29,16 @@ public class Deck {
     public void shuffle(ArrayList<Card>List, Random rnd){
         Collections.shuffle(List);
     }
+
+    //used for debug - prints everything to console
+    public void printAllCards(){
+        System.out.print("Cards in the deck: ");
+        for (Card card : deck){
+            System.out.print(card.getCardInfoString() + ", ");
+        }
+
+        System.out.print("\n");
+    }
 }
 
 

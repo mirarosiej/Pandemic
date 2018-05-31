@@ -7,4 +7,5 @@ public abstract class Card {
     public CardType getCardType(){
         return cardtype;
     }
+    public abstract String getCardInfoString(); //for debug info
 }
