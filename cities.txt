@@ -26,7 +26,7 @@ U Cairo Algiers Riyadh Baghdad Istanbul
 U Riyadh Cairo Baghdad Karachi
 U Baghdad Cairo Riyadh Istanbul Tehran Tehran
 U Istanbul Milan Algiers Cairo Baghdad Moscow St.Petersburg
-U  Moscow St.Petersburg Istanbul Tehran
+U Moscow St.Petersburg Istanbul Tehran
 U Tehran Moscow Baghdad Karachi Delhi
 U Karachi Baghdad Tehran Delhi Mumbai Riyadh
 U Delhi Tehran Karachi Mumbai Chennai Kolkata
