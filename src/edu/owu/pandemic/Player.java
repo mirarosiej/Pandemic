@@ -31,6 +31,16 @@ public class Player {
         return hand;
     }
 
+    private PlayerCard getCityCardFromHand(String city){
+        for (PlayerCard card : hand){
+            if (card.getCity() == city){
+                return card;
+            }
+        }
+
+        return null;
+    }
+
     public boolean isHoldingCityCard(String target){
         for (PlayerCard card : hand){
             if (card.getCity() == target){
@@ -41,6 +51,7 @@ public class Player {
         return false;
     }
 
+    //returns the card and removes it from hand
     private PlayerCard takeCityCard(String targetCity){
         PlayerCard toReturn = null;
 
@@ -54,6 +65,10 @@ public class Player {
         }
 
         return toReturn;
+    }
+
+    public void addCardToHand(PlayerCard card){
+        hand.add(card);
     }
 
     //move to an adjacent city
@@ -120,6 +135,91 @@ public class Player {
 
             PlayerCard toDiscard = takeCityCard(currentCity);
             GameState.discardPlayerCard(toDiscard);
+
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    //destroy a disease cube at the current position
+    public void treatDisease(){
+        City targetCity = GameState.getCities().get(currentCity);
+
+        if (GameState.isDiseaseCured(targetCity.getColor())){
+            targetCity.removeCubes(targetCity.getCubeCount());
+        }else{
+            targetCity.removeCubes(1);
+        }
+    }
+
+    //share knowledge with another player
+    //returns false if it isn't possible
+    public boolean shareKnowledge(Player targetPlayer, String targetCity){
+
+        boolean isResearcher = (role == Role.RESEARCHER);
+        boolean inTargetCity = (targetCity == currentCity);
+        boolean playersShareCity = (targetPlayer.getCurrentCity() == currentCity);
+        boolean haveTargetCityCard = (isHoldingCityCard(targetCity));
+
+        if (haveTargetCityCard && playersShareCity && (isResearcher || inTargetCity)){
+            //note: target player has to throw out a card if they have too many
+
+            PlayerCard card = takeCityCard(targetCity);
+            targetPlayer.addCardToHand(card);
+
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    //take knowledge from another player
+    //returns false if it isn't possible
+    public boolean takeKnowledge(Player targetPlayer, String targetCity){
+
+        boolean isResearcher = (targetPlayer.getRole() == Role.RESEARCHER);
+        boolean inTargetCity = (targetCity == currentCity);
+        boolean playersShareCity = (targetPlayer.getCurrentCity() == currentCity);
+        boolean haveTargetCityCard = (targetPlayer.isHoldingCityCard(targetCity));
+
+        if (haveTargetCityCard && playersShareCity && (isResearcher || inTargetCity)){
+            //note: target player has to throw out a card if they have too many
+
+            PlayerCard card = targetPlayer.takeCityCard(targetCity);
+            addCardToHand(card);
+
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    //cure a disease by sacrificing 5 cards of the same color at a research station
+    //returns false if it's not possible
+    public boolean discoverCure(String cardCity1, String cardCity2, String cardCity3, String cardCity4, String cardCity5){
+
+        boolean haveCards = true;
+        String color = getCityCardFromHand(cardCity1).getColor();
+
+        if (!isHoldingCityCard(cardCity1)){
+            haveCards = false;
+        }
+        if (!isHoldingCityCard(cardCity2)){
+            haveCards = false;
+        }
+        if (!isHoldingCityCard(cardCity3)){
+            haveCards = false;
+        }
+        if (!isHoldingCityCard(cardCity4)){
+            haveCards = false;
+        }
+        if (!isHoldingCityCard(cardCity5)){
+            haveCards = false;
+        }
+
+        if(GameState.cityHasResearchStation(currentCity) && haveCards) {
+            GameState.setCured(color);
 
             return true;
         }else{

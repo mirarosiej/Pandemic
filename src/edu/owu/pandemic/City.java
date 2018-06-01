@@ -28,6 +28,10 @@ public class City {
         return new ArrayList<String>(adjacent); //copy constructor
     }
 
+    public String getColor(){
+        return color;
+    }
+
     public int getCubeCount() {
         return cubeCount;
     }
@@ -38,6 +42,14 @@ public class City {
 
     public void addCubes(int cubes){
         cubeCount += cubes;
+    }
+
+    public void removeCubes(int amount){
+        cubeCount -= amount;
+
+        if (cubeCount < 0){
+            cubeCount = 0;
+        }
     }
 
     public boolean isAdjacent(String icity){

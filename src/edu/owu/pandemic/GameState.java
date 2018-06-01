@@ -17,10 +17,15 @@ public class GameState {
     private int outbreak = 0;
     private int infectionrateindex = 0;
     private int[] infectionrates = new int[]{2,2,2,3,3,4,4};
-    private boolean blue;
-    private boolean black;
-    private boolean red;
-    private boolean yellow;
+
+    private static boolean blueCured = false;
+    private static boolean blackCured = false;
+    private static boolean redCured = false;
+    private static boolean yellowCured = false;
+    private static boolean blueEradicated = false;
+    private static boolean blackEradicated = false;
+    private static boolean redEradicated = false;
+    private static boolean yellowEradicated = false;
 
     //constructor
     public GameState(String info_file){
@@ -214,4 +219,46 @@ public class GameState {
     public static void discardPlayerCard(PlayerCard toDiscard){
         playerdeck.pushToDiscard(toDiscard);
     }
+
+    public static boolean isDiseaseCured(String color){
+        if (color == "B"){
+            return blueCured;
+        } else if (color == "R"){
+            return redCured;
+        } else if (color == "Y"){
+            return yellowCured;
+        } else if (color == "U"){
+            return blackCured;
+        } else {
+            return false;
+        }
+    }
+
+    public static boolean isDiseaseEradicated(String color){
+        if (color == "B"){
+            return blueEradicated;
+        } else if (color == "R"){
+            return redEradicated;
+        } else if (color == "Y"){
+            return yellowEradicated;
+        } else if (color == "U"){
+            return blackEradicated;
+        } else {
+            return false;
+        }
+    }
+
+    public static void setCured(String color){
+        if (color == "B"){
+            blueCured = true;
+        } else if (color == "R"){
+            redCured = true;
+        } else if (color == "Y"){
+            yellowCured = true;
+        } else if (color == "U"){
+            blackCured = true;
+        }
+    }
+
+
 }
