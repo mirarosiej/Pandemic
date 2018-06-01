@@ -191,13 +191,24 @@ public class GameState {
         }
     }
 
+    //return a copy of the player list
+    public ArrayList<Player> getPlayers(){
+        return new ArrayList<Player>(players); //copy constructor
+    }
+
+    public static void placeResearchStation(String targetCity){
+        if (!stations.contains(targetCity)){ //if there isn't a station already there
+            stations.add(targetCity);
+        }
+    }
+
     public static boolean cityHasResearchStation(String target){
         return stations.contains(target);
     }
 
     //return a copy of nodes
     public static HashMap<String, City> getCities(){
-        return new HashMap<String, City>(nodes);
+        return new HashMap<String, City>(nodes); //copy constructor
     }
 
     public static void discardPlayerCard(PlayerCard toDiscard){

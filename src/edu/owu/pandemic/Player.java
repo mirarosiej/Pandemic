@@ -72,8 +72,6 @@ public class Player {
     //move to a city of a held card
     //returns false if move isn't possible
     public boolean directFlight(String destination){
-        HashMap<String, City> cities = GameState.getCities();
-
         if (this.isHoldingCityCard(destination)){
             currentCity = destination; //do the move
             PlayerCard toDiscard = takeCityCard(destination);
@@ -87,8 +85,6 @@ public class Player {
     //move to any city if card matches current position
     //returns false if move isn't possible
     public boolean charterFlight(String destination){
-        HashMap<String, City> cities = GameState.getCities();
-
         if (this.isHoldingCityCard(currentCity)){
             String previousCity = currentCity;
             currentCity = destination; //do the move
@@ -103,14 +99,28 @@ public class Player {
     //move between research station cities
     //returns false if move isn't possible
     public boolean shuttleFlight(String destination){
-        HashMap<String, City> cities = GameState.getCities();
-
         //if current location and destination both have research stations
         if (GameState.cityHasResearchStation(currentCity) && GameState.cityHasResearchStation(destination)){
-            String previousCity = currentCity;
             currentCity = destination; //do the move
-            PlayerCard toDiscard = takeCityCard(previousCity);
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    //build research station at current location
+    //returns false if not possible
+    public boolean buildResearchStation(){
+        if (role == Role.OPERATION){ //if the player is an operations expert
+            GameState.placeResearchStation(currentCity);
+
+            return true;
+        }else if (this.isHoldingCityCard(currentCity)){ //if the player has a card of their current position
+            GameState.placeResearchStation(currentCity);
+
+            PlayerCard toDiscard = takeCityCard(currentCity);
             GameState.discardPlayerCard(toDiscard);
+
             return true;
         }else{
             return false;
