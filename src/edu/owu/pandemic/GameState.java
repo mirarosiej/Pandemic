@@ -196,9 +196,8 @@ public class GameState {
         }
     }
 
-    //return a copy of the player list
     public ArrayList<Player> getPlayers(){
-        return new ArrayList<Player>(players); //copy constructor
+        return players;
     }
 
     public static void placeResearchStation(String targetCity){
@@ -211,9 +210,8 @@ public class GameState {
         return stations.contains(target);
     }
 
-    //return a copy of nodes
     public static HashMap<String, City> getCities(){
-        return new HashMap<String, City>(nodes); //copy constructor
+        return nodes;
     }
 
     public static void discardPlayerCard(PlayerCard toDiscard){
