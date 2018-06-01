@@ -39,4 +39,8 @@ public class City {
     public void addCubes(int cubes){
         cubeCount += cubes;
     }
+
+    public boolean isAdjacent(String icity){
+        return adjacent.contains(icity);
+    }
 }

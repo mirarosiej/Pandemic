@@ -31,6 +31,10 @@ public class Deck {
         deck.add(card);
     }
 
+    public void pushToDiscard(Card card){
+        discard.add(card);
+    }
+
     //used for shuffling the deck
     public void shuffle(){
         Collections.shuffle(deck);

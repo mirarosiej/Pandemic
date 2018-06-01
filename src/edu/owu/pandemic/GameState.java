@@ -8,10 +8,10 @@ import java.nio.file.Paths;
 import java.util.*;
 
 public class GameState {
-    private HashMap<String, City> nodes = new HashMap<String, City>();
+    private static HashMap<String, City> nodes = new HashMap<String, City>();
     ArrayList<String> stations = new ArrayList<>();
     private Deck infectiondeck = new Deck();
-    private Deck playerdeck = new Deck();
+    private static Deck playerdeck = new Deck();
     ArrayList<Player> players = new ArrayList<>();
 
     private int outbreak = 0;
@@ -136,7 +136,7 @@ public class GameState {
 
         System.out.println("Players: ");
         for (Player player: players){
-            System.out.print("   " + player.getCurrentcity() + ": ");
+            System.out.print("   " + player.getCurrentCity() + ": ");
             for (Card card : player.getHand()){
                 System.out.print(card.getCardInfoString() + ", ");
             }
@@ -189,5 +189,14 @@ public class GameState {
             City city = nodes.get(card.getCity());
             city.setCubeCount(1);
         }
+    }
+
+    //return a copy of nodes
+    public static HashMap<String, City> getCities(){
+        return new HashMap<String, City>(nodes);
+    }
+
+    public static void discardPlayerCard(PlayerCard toDiscard){
+        playerdeck.pushToDiscard(toDiscard);
     }
 }
