@@ -84,4 +84,37 @@ public class Player {
         }
     }
 
+    //move to any city if card matches current position
+    //returns false if move isn't possible
+    public boolean charterFlight(String destination){
+        HashMap<String, City> cities = GameState.getCities();
+
+        if (this.isHoldingCityCard(currentCity)){
+            String previousCity = currentCity;
+            currentCity = destination; //do the move
+            PlayerCard toDiscard = takeCityCard(previousCity);
+            GameState.discardPlayerCard(toDiscard);
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    //move between research station cities
+    //returns false if move isn't possible
+    public boolean shuttleFlight(String destination){
+        HashMap<String, City> cities = GameState.getCities();
+
+        //if current location and destination both have research stations
+        if (GameState.cityHasResearchStation(currentCity) && GameState.cityHasResearchStation(destination)){
+            String previousCity = currentCity;
+            currentCity = destination; //do the move
+            PlayerCard toDiscard = takeCityCard(previousCity);
+            GameState.discardPlayerCard(toDiscard);
+            return true;
+        }else{
+            return false;
+        }
+    }
+
 }

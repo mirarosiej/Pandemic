@@ -9,7 +9,7 @@ import java.util.*;
 
 public class GameState {
     private static HashMap<String, City> nodes = new HashMap<String, City>();
-    ArrayList<String> stations = new ArrayList<>();
+    private static ArrayList<String> stations = new ArrayList<>();
     private Deck infectiondeck = new Deck();
     private static Deck playerdeck = new Deck();
     ArrayList<Player> players = new ArrayList<>();
@@ -189,6 +189,10 @@ public class GameState {
             City city = nodes.get(card.getCity());
             city.setCubeCount(1);
         }
+    }
+
+    public static boolean cityHasResearchStation(String target){
+        return stations.contains(target);
     }
 
     //return a copy of nodes
