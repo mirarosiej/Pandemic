@@ -18,6 +18,11 @@ public class Player {
         return role;
     }
 
+    //not an action - used only for dispatcherTeleport and manually setting position
+    public void setCurrentCity(String toSet){
+        currentCity = toSet;
+    }
+
     public String getCurrentCity(){
         return currentCity;
     }
@@ -143,10 +148,12 @@ public class Player {
     }
 
     //destroy a disease cube at the current position
+    //TODO removing cured disease is an automatic and free action for medic
     public void treatDisease(){
         City targetCity = GameState.getCities().get(currentCity);
 
-        if (GameState.isDiseaseCured(targetCity.getColor())){
+        //if disease is cured or if player is a medic
+        if (GameState.isDiseaseCured(targetCity.getColor()) || role == Role.MEDIC){
             targetCity.removeCubes(targetCity.getCubeCount());
         }else{
             targetCity.removeCubes(1);
@@ -196,6 +203,7 @@ public class Player {
     }
 
     //cure a disease by sacrificing 5 cards of the same color at a research station
+    //if player is a scientist, only 4 cards are needed, the last argument can be any string
     //returns false if it's not possible
     public boolean discoverCure(String cardCity1, String cardCity2, String cardCity3, String cardCity4, String cardCity5){
 
@@ -204,18 +212,45 @@ public class Player {
 
         if (!isHoldingCityCard(cardCity1)){
             haveCards = false;
+        }else{
+            //discard that card
+            PlayerCard toDiscard = takeCityCard(cardCity1);
+            GameState.discardPlayerCard(toDiscard);
         }
+
         if (!isHoldingCityCard(cardCity2)){
             haveCards = false;
+        }else{
+            //discard that card
+            PlayerCard toDiscard = takeCityCard(cardCity2);
+            GameState.discardPlayerCard(toDiscard);
         }
+
         if (!isHoldingCityCard(cardCity3)){
             haveCards = false;
+        }else{
+            //discard that card
+            PlayerCard toDiscard = takeCityCard(cardCity3);
+            GameState.discardPlayerCard(toDiscard);
         }
+
         if (!isHoldingCityCard(cardCity4)){
             haveCards = false;
+        }else{
+            //discard that card
+            PlayerCard toDiscard = takeCityCard(cardCity4);
+            GameState.discardPlayerCard(toDiscard);
         }
-        if (!isHoldingCityCard(cardCity5)){
-            haveCards = false;
+
+        //scientist doesn't need a fifth card
+        if (role != Role.SCIENTIST) {
+            if (!isHoldingCityCard(cardCity5)) {
+                haveCards = false;
+            }else{
+                //discard that card
+                PlayerCard toDiscard = takeCityCard(cardCity5);
+                GameState.discardPlayerCard(toDiscard);
+            }
         }
 
         if(GameState.cityHasResearchStation(currentCity) && haveCards) {
@@ -226,5 +261,60 @@ public class Player {
             return false;
         }
     }
+
+    //move from a research station to any city by discarding any city card
+    //only operations expert can do this
+    //returns false if not possible
+    //TODO only possible once per turn
+    public boolean operationsMove(String destination, String cityCardToDiscard){
+
+        if (role == Role.OPERATION && GameState.cityHasResearchStation(currentCity)){
+            currentCity = destination; //do the move
+            PlayerCard toDiscard = takeCityCard(cityCardToDiscard);
+            GameState.discardPlayerCard(toDiscard);
+
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    //move another player
+    //only dispatcher can do this
+    //returns false if not possible
+    public boolean dispatcherMove(Player targetPlayer, String moveType, String destination){
+
+        if (role == Role.DISPATCHER){
+            if (moveType.equals("drive")){
+                return targetPlayer.drive(destination);
+            }else if (moveType.equals("directflight")){
+                return targetPlayer.directFlight(destination);
+            }else if (moveType.equals("charterflight")){
+                return targetPlayer.charterFlight(destination);
+            }else if (moveType.equals("shuttleflight")){
+                return targetPlayer.shuttleFlight(destination);
+            }else{
+                return false;
+            }
+        }else{
+            return false;
+        }
+    }
+
+    //move any player to any other player
+    //only Dispatcher can do this
+    //returns false if not possible
+    public boolean dispatcherTeleport(Player tomove, Player target){
+
+        if (role == Role.DISPATCHER){
+            tomove.setCurrentCity(target.getCurrentCity());
+
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    //TODO specialist stops cube updates
 
 }
