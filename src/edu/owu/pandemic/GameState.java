@@ -219,13 +219,13 @@ public class GameState {
     }
 
     public static boolean isDiseaseCured(String color){
-        if (color == "B"){
+        if (color.equals("B")){
             return blueCured;
-        } else if (color == "R"){
+        } else if (color.equals("R")){
             return redCured;
-        } else if (color == "Y"){
+        } else if (color.equals("Y")){
             return yellowCured;
-        } else if (color == "U"){
+        } else if (color.equals("U")){
             return blackCured;
         } else {
             return false;
@@ -233,13 +233,13 @@ public class GameState {
     }
 
     public static boolean isDiseaseEradicated(String color){
-        if (color == "B"){
+        if (color.equals("B")){
             return blueEradicated;
-        } else if (color == "R"){
+        } else if (color.equals("R")){
             return redEradicated;
-        } else if (color == "Y"){
+        } else if (color.equals("Y")){
             return yellowEradicated;
-        } else if (color == "U"){
+        } else if (color.equals("U")){
             return blackEradicated;
         } else {
             return false;
@@ -247,13 +247,13 @@ public class GameState {
     }
 
     public static void setCured(String color){
-        if (color == "B"){
+        if (color.equals("B")){
             blueCured = true;
-        } else if (color == "R"){
+        } else if (color.equals("R")){
             redCured = true;
-        } else if (color == "Y"){
+        } else if (color.equals("Y")){
             yellowCured = true;
-        } else if (color == "U"){
+        } else if (color.equals("U")){
             blackCured = true;
         }
     }

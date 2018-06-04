@@ -33,7 +33,7 @@ public class Player {
 
     private PlayerCard getCityCardFromHand(String city){
         for (PlayerCard card : hand){
-            if (card.getCity() == city){
+            if (card.getCity().equals(city)){
                 return card;
             }
         }
@@ -43,7 +43,7 @@ public class Player {
 
     public boolean isHoldingCityCard(String target){
         for (PlayerCard card : hand){
-            if (card.getCity() == target){
+            if (card.getCity().equals(target)){
                 return true;
             }
         }
@@ -58,7 +58,7 @@ public class Player {
         for (int i = 0; i < hand.size(); i++){
             PlayerCard card = hand.get(i);
 
-            if (card.getCity() == targetCity){
+            if (card.getCity().equals(targetCity)){
                 toReturn = card;
                 hand.remove(i);
             }
@@ -158,8 +158,8 @@ public class Player {
     public boolean shareKnowledge(Player targetPlayer, String targetCity){
 
         boolean isResearcher = (role == Role.RESEARCHER);
-        boolean inTargetCity = (targetCity == currentCity);
-        boolean playersShareCity = (targetPlayer.getCurrentCity() == currentCity);
+        boolean inTargetCity = (targetCity.equals(currentCity));
+        boolean playersShareCity = (targetPlayer.getCurrentCity().equals(currentCity));
         boolean haveTargetCityCard = (isHoldingCityCard(targetCity));
 
         if (haveTargetCityCard && playersShareCity && (isResearcher || inTargetCity)){
@@ -179,8 +179,8 @@ public class Player {
     public boolean takeKnowledge(Player targetPlayer, String targetCity){
 
         boolean isResearcher = (targetPlayer.getRole() == Role.RESEARCHER);
-        boolean inTargetCity = (targetCity == currentCity);
-        boolean playersShareCity = (targetPlayer.getCurrentCity() == currentCity);
+        boolean inTargetCity = (targetCity.equals(currentCity));
+        boolean playersShareCity = (targetPlayer.getCurrentCity().equals(currentCity));
         boolean haveTargetCityCard = (targetPlayer.isHoldingCityCard(targetCity));
 
         if (haveTargetCityCard && playersShareCity && (isResearcher || inTargetCity)){
