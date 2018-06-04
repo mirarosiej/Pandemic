@@ -147,7 +147,7 @@ public class GameState {
             }
             System.out.print("\n");
         }
-        //DEBUG-END
+        //DEBUG-ENDx
     }
 
     public void addPlayer(Player.Role role){
@@ -205,7 +205,6 @@ public class GameState {
             stations.add(targetCity);
         }
     }
-
 
     public static boolean cityHasResearchStation(String target){
         return stations.contains(target);
@@ -266,4 +265,13 @@ public class GameState {
     public int getInfectionrateindex(){
         return infectionrateindex;
     }
+
+    public void printResearchStations(){
+        System.out.print("Research stations are located in: ");
+        for (String station : stations){
+            System.out.print(station + ", ");
+        }
+        System.out.print("\n");
+    }
+
 }

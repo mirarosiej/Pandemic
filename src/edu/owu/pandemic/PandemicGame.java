@@ -34,6 +34,8 @@ public class PandemicGame{
                 while(responsebreak ==true) {
                     System.out.println("Would you like information?");
                     response = reader.nextLine();
+                    //cubes
+                    //list how many cubes of each
                     if (response.equals("yes")) {
                         System.out.println("What information would you like?");
                         response = reader.nextLine();
@@ -44,15 +46,13 @@ public class PandemicGame{
                             System.out.println(gamestate.getOutbreak());
                         }
                         if (response.equals("researchstations")) {
-                            System.out.print("which city?");
-                            response = reader.nextLine();
+                            gamestate.printResearchStations();
                         }
                         if (response.equals("cures")){
                             System.out.println("Which color");
                             response = reader.nextLine();
                             System.out.println(gamestate.isDiseaseCured(response));
                         }
-                        if (response.equals())
                         System.out.println("Would you like anything else");
                         response = reader.nextLine();
                         if (response.equals("no")){
