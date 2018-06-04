@@ -29,77 +29,92 @@ public class PandemicGame{
 
         while(looping==true) {
             String move = "";
-            System.out.print("Choose your move");
-            move = reader.nextLine();
+
             for (Player player : players) {
                 for (int i = 0; i < 4; i++) {
+
+                    System.out.print("Possible moves - {drive, directflight, charterflight, shuttleflight,\n" +
+                            "buildresearchstation, treat, share, take, discover} \n");
+                    System.out.print("Choose your move: ");
+                    move = reader.nextLine();
+
                     if (move.equals("drive")) {
                         //call the action drive
-                        System.out.print("What is the destination");
+                        System.out.print("What is the destination: ");
                         String destination = reader.nextLine();
+
                         success = player.drive(destination);
                         if (success == false) {
                             System.out.println("Bad move");
                             i--;
                         }
                     }
-                    if (move.equals("directFlight")) {
-                        System.out.print("What is the destination");
+
+                    if (move.equals("directflight")) {
+                        System.out.print("What is the destination: ");
                         String destination = reader.nextLine();
+
                         success = player.directFlight(destination);
                         if (success == false) {
                             System.out.println("Bad move");
                             i--;
                         }
                     }
-                    if (move.equals("charterFlight")) {
-                        System.out.print("What is the destination");
+
+                    if (move.equals("charterflight")) {
+                        System.out.print("What is the destination: ");
                         String destination = reader.nextLine();
+
                         success = player.charterFlight(destination);
                         if (success == false) {
                             System.out.println("Bad move");
                             i--;
                         }
                     }
-                    if (move.equals("shuttleFlight")) {
-                        System.out.print("What is the destination");
+
+                    if (move.equals("shuttleflight")) {
+                        System.out.print("What is the destination: ");
                         String destination = reader.nextLine();
+
                         success = player.shuttleFlight(destination);
                         if (success == false) {
                             System.out.println("Bad move");
                             i--;
                         }
                     }
-                    if (move.equals("buildResearchStation")) {
+
+                    if (move.equals("buildresearchstation")) {
                         success = player.buildResearchStation();
                         if (success == false) {
                             System.out.println("Bad move");
                             i--;
                         }
                     }
+
                     if (move.equals("treat")) {
-                        System.out.print("What is the destination");
-                        String destination = reader.nextLine();
                         player.treatDisease();
                         if (success == false) {
                             System.out.println("Bad move");
                             i--;
                         }
                     }
+
                     if (move.equals("share")) {
-                        System.out.print("What is the destination");
+                        System.out.print("What card: ");
                         String destination = reader.nextLine();
+
                         success = player.drive(destination);
                         if (success == false) {
                             System.out.println("Bad move");
                             i--;
                         }
                     }
+
                     if (move.equals("take")) {
-                        System.out.print("What is the destination");
+                        System.out.print("What card: ");
                         String destination = reader.nextLine();
 
-                        System.out.print("What player?");
+                        System.out.print("What player(number): ");
                         String pnum = reader.nextLine();
 
                         success = player.takeKnowledge(players.get(Integer.parseInt(pnum)), destination);
@@ -108,20 +123,21 @@ public class PandemicGame{
                             i--;
                         }
                     }
+
                     if (move.equals("discover")) {
-                        System.out.print("What is the card1?");
+                        System.out.print("What is the card1: ");
                         String card1 = reader.nextLine();
 
-                        System.out.print("What is the card2?");
+                        System.out.print("What is the card2: ");
                         String card2 = reader.nextLine();
 
-                        System.out.print("What is the card3?");
+                        System.out.print("What is the card3: ");
                         String card3 = reader.nextLine();
 
-                        System.out.print("What is the card4?");
+                        System.out.print("What is the card4: ");
                         String card4 = reader.nextLine();
 
-                        System.out.print("What is the card5?");
+                        System.out.print("What is the card5: ");
                         String card5 = reader.nextLine();
 
                         success = player.discoverCure(card1, card2, card3, card4, card5);
