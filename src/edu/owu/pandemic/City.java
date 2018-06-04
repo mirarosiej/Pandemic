@@ -2,18 +2,24 @@ package edu.owu.pandemic;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 public class City {
     private String name;
     private String color;
 
-    private int cubeCount = 0;
+    private HashMap<String, Integer> cubes = new HashMap<>();
 
-    private ArrayList<String> adjacent = new ArrayList<String>();
+    private ArrayList<String> adjacent = new ArrayList<>();
 
     public City(String cty, String clr) {
         name = cty;
         color = clr;
+
+        cubes.put("U", 0);
+        cubes.put("B", 0);
+        cubes.put("R", 0);
+        cubes.put("Y", 0);
     }
 
     public void addAdjacent(String adjcity){
@@ -33,42 +39,68 @@ public class City {
         return color;
     }
 
+    public int getCubeCount(String color) {
+        return cubes.get(color);
+    }
+
     public int getCubeCount() {
-        return cubeCount;
+        return getCubeCount(this.color);
     }
 
     //only for setup
-    public void setCubeCount(int cubes){
-        cubeCount = cubes;
+    public void setCubeCount(int count, String color){
+        cubes.put(color, count);
+    }
+
+    public void setCubeCount(int count){
+        setCubeCount(count, this.color);
     }
 
     public void incrementCubes(){
-        cubeCount ++;
+        incrementCubes(this.color);
+    }
+
+    public void incrementCubes(String color){
+        cubes.put(color, cubes.get(color) + 1);
 
         //check if there are more than 3 cubes there
-        if(cubeCount > 3){
-            cubeCount = 3;
+        for (Map.Entry<String, Integer> entry : cubes.entrySet()) {
 
-            //infect adjacent cities
-            HashMap<String, City> cities = GameState.getCities();
-            for (String cityname : adjacent){
-                cities.get(cityname).incrementCubes();
+            String key = entry.getKey();
+            int value = entry.getValue();
+
+            if (value > 3) {
+                cubes.put(key, 3);
+
+                //infect adjacent cities
+                HashMap<String, City> cities = GameState.getCities();
+                for (String cityname : adjacent) {
+                    cities.get(cityname).incrementCubes(key);
+                }
             }
         }
     }
 
-    public void addCubes(int cubes){
-        for (int i = 0; i < cubes; i++){
-            incrementCubes();
+    public void addCubes(int count, String color){
+        for (int i = 0; i < count; i++){
+            incrementCubes(color);
+        }
+    }
+
+    public void addCubes(int count){
+        addCubes(count, this.color);
+    }
+
+    public void removeCubes(int amount, String color){
+        cubes.put(color, cubes.get(color) - 1);
+
+        if (cubes.get(color) < 0){
+            cubes.put(color, 0);
         }
     }
 
     public void removeCubes(int amount){
-        cubeCount -= amount;
-
-        if (cubeCount < 0){
-            cubeCount = 0;
-        }
+        removeCubes(amount, this.color);
     }
 
     public boolean isAdjacent(String icity){
