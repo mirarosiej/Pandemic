@@ -308,4 +308,9 @@ public class GameState {
         System.out.print("\n");
     }
 
+    public static Deck getPlayerdeck(){
+        return playerdeck;
+    }
+
+
 }

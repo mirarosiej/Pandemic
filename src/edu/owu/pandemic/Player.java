@@ -315,6 +315,14 @@ public class Player {
         }
     }
 
+    public void discardfromhand(String card){
+        for(PlayerCard c : hand){
+            if (c.getCity().equals(card)){
+                hand.remove(c);
+            }
+        }
+    }
+
     //TODO specialist stops cube updates
 
 }

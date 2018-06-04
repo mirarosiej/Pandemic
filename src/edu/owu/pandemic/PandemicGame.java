@@ -24,12 +24,10 @@ public class PandemicGame{
         String response = "";
         boolean responsebreak = true;
         ArrayList<Player> players= gamestate.getPlayers();
-
         System.out.print("\n\n");
 
         while(looping==true) {
             String move = "";
-
             for (Player player : players) {
                 while(responsebreak ==true) {
                     System.out.println("Would you like information?");
@@ -53,6 +51,9 @@ public class PandemicGame{
                             response = reader.nextLine();
                             System.out.println(gamestate.isDiseaseCured(response));
                         }
+                        if (response.equals("cubes")){
+                            System.out.println("Getting the cube count");
+                        }
                         System.out.println("Would you like anything else");
                         response = reader.nextLine();
                         if (response.equals("no")){
@@ -63,8 +64,20 @@ public class PandemicGame{
                     }
 
                 }
-                for (int i = 0; i < 4; i++) {
 
+                String discaredcard="";
+                player.drawCard(gamestate.getPlayerdeck());
+                player.drawCard(gamestate.getPlayerdeck());
+
+                if (player.getHand().size() > 7){
+                    for (int j=0; j < player.getHand().size()-7; j++){
+                        System.out.println("Which card to discard");
+                        discaredcard= reader.nextLine();
+                        player.discardfromhand(discaredcard);
+                    }
+                }
+
+                for (int i = 0; i < 4; i++) {
                     System.out.print("Possible moves - {drive, directflight, charterflight, shuttleflight,\n" +
                             "buildresearchstation, treat, share, take, discover} \n");
                     System.out.print("Choose your move: ");
@@ -81,7 +94,6 @@ public class PandemicGame{
                             i--;
                         }
                     }
-
                     if (move.equals("directflight")) {
                         System.out.print("What is the destination: ");
                         String destination = reader.nextLine();
@@ -185,11 +197,10 @@ public class PandemicGame{
                     }
 
                 }
+                gamestate.newTurn();
             }
             looping = false;
         }
     }
 }
-
-
 
