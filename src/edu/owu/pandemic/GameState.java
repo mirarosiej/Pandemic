@@ -206,6 +206,7 @@ public class GameState {
         }
     }
 
+
     public static boolean cityHasResearchStation(String target){
         return stations.contains(target);
     }
@@ -258,5 +259,11 @@ public class GameState {
         }
     }
 
+    public int getOutbreak(){
+        return outbreak;
+    }
 
+    public int getInfectionrateindex(){
+        return infectionrateindex;
+    }
 }

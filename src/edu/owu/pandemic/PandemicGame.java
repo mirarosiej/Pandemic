@@ -21,6 +21,8 @@ public class PandemicGame{
         Scanner reader = new Scanner(System.in);
         boolean looping = true;
         boolean success = true;
+        String response = "";
+        boolean responsebreak = true;
         ArrayList<Player> players= gamestate.getPlayers();
 
         System.out.print("\n\n");
@@ -29,6 +31,36 @@ public class PandemicGame{
             String move = "";
 
             for (Player player : players) {
+                while(responsebreak ==true) {
+                    System.out.println("Would you like information?");
+                    response = reader.nextLine();
+                    if (response.equals("yes")) {
+                        System.out.println("What information would you like?");
+                        response = reader.nextLine();
+                        if (response.equals("infectionrates")) {
+                            System.out.println(gamestate.getInfectionrateindex());
+                        }
+                        if (response.equals("outbreaks")) {
+                            System.out.println(gamestate.getOutbreak());
+                        }
+                        if (response.equals("researchstations")) {
+                            System.out.print("which city?");
+                            response = reader.nextLine();
+
+                        }
+                        if (response.equals("cures")){
+                            System.out.println("Which color");
+                            response = reader.nextLine();
+                            System.out.println(gamestate.isDiseaseCured(response));
+                        }
+                        System.out.println("Would you like anything else");
+                        response = reader.nextLine();
+                        if (response.equals("no")){
+                            responsebreak = false;
+                        }
+                    }
+
+                }
                 for (int i = 0; i < 4; i++) {
 
                     System.out.print("Possible moves - {drive, directflight, charterflight, shuttleflight,\n" +
@@ -101,7 +133,11 @@ public class PandemicGame{
                         System.out.print("What card: ");
                         String destination = reader.nextLine();
 
-                        success = player.drive(destination);
+                        System.out.println("What player(num): ");
+                        String pnum = reader.nextLine();
+
+                        success = player.shareKnowledge(players.get(Integer.parseInt(pnum)),destination);
+
                         if (success == false) {
                             System.out.println("Bad move");
                             i--;
