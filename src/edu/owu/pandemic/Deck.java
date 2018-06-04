@@ -6,8 +6,8 @@ import java.util.Collections;
 
 public class Deck {
     //These are the decks
-    ArrayList<Card> deck;
-    ArrayList<Card> discard;
+    private ArrayList<Card> deck;
+    private ArrayList<Card> discard;
 
     public Deck(){
         deck = new ArrayList<Card>();
