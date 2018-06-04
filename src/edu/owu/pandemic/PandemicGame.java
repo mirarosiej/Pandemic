@@ -25,6 +25,8 @@ public class PandemicGame{
         boolean success = true;
         ArrayList<Player> players= gamestate.getPlayers();
 
+        System.out.print("\n\n");
+
         while(looping==true) {
             String move = "";
             System.out.print("Choose your move");
@@ -69,9 +71,7 @@ public class PandemicGame{
                         }
                     }
                     if (move.equals("buildResearchStation")) {
-                        System.out.print("What is the destination");
-                        String destination = reader.nextLine();
-                        success = player.buildResearchStation(destination);
+                        success = player.buildResearchStation();
                         if (success == false) {
                             System.out.println("Bad move");
                             i--;
@@ -98,16 +98,33 @@ public class PandemicGame{
                     if (move.equals("take")) {
                         System.out.print("What is the destination");
                         String destination = reader.nextLine();
-                        success = player.takeKnowledge(destination,players);
+
+                        System.out.print("What player?");
+                        String pnum = reader.nextLine();
+
+                        success = player.takeKnowledge(players.get(Integer.parseInt(pnum)), destination);
                         if (success == false) {
                             System.out.println("Bad move");
                             i--;
                         }
                     }
                     if (move.equals("discover")) {
-                        System.out.print("What is the destination");
-                        String destination = reader.nextLine();
-                        success = player.discoverCure("");
+                        System.out.print("What is the card1?");
+                        String card1 = reader.nextLine();
+
+                        System.out.print("What is the card2?");
+                        String card2 = reader.nextLine();
+
+                        System.out.print("What is the card3?");
+                        String card3 = reader.nextLine();
+
+                        System.out.print("What is the card4?");
+                        String card4 = reader.nextLine();
+
+                        System.out.print("What is the card5?");
+                        String card5 = reader.nextLine();
+
+                        success = player.discoverCure(card1, card2, card3, card4, card5);
                         if (success == false) {
                             System.out.println("Bad move");
                             i--;
