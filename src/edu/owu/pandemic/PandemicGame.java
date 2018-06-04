@@ -150,6 +150,7 @@ public class PandemicGame{
 
                 }
             }
+            looping = false;
         }
     }
 }
