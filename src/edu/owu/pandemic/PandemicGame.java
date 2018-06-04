@@ -46,18 +46,20 @@ public class PandemicGame{
                         if (response.equals("researchstations")) {
                             System.out.print("which city?");
                             response = reader.nextLine();
-
                         }
                         if (response.equals("cures")){
                             System.out.println("Which color");
                             response = reader.nextLine();
                             System.out.println(gamestate.isDiseaseCured(response));
                         }
+                        if (response.equals())
                         System.out.println("Would you like anything else");
                         response = reader.nextLine();
                         if (response.equals("no")){
                             responsebreak = false;
                         }
+                    } else {
+                        responsebreak = false;
                     }
 
                 }
