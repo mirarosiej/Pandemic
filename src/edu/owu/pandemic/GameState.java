@@ -206,6 +206,40 @@ public class GameState {
         }
     }
 
+    //everything that needs to be done at the end of each turn
+    //draw infection cards, put new cubes, handle epidemic cards
+    public void newTurn(){
+        int amountCards = infectionrates[infectionrateindex];
+
+        for (int i = 0; i < amountCards; i++){
+            Card card = infectiondeck.draw();
+
+            if (card.getCardType() == Card.CardType.EPIDEMIC){
+
+                //increase the infection rate
+                if (infectionrateindex < 6) {
+                    infectionrateindex++;
+                }
+
+                //add 3 cubes
+                InfectionCard cardToInfect = (InfectionCard) infectiondeck.getBottomNormalCard();
+                nodes.get(cardToInfect.getCity()).addCubes(3);
+                infectiondeck.pushToDiscard(cardToInfect);
+
+                infectiondeck.shuffeBack();
+
+            }else{ //if normal infection card
+                InfectionCard infcard = (InfectionCard) card;
+
+                if (!isDiseaseEradicated(infcard.getColor())) {
+                    City city = nodes.get(infcard.getCity());
+
+                    city.incrementCubes(); //put new cube
+                }
+            }
+        }
+    }
+
     public static boolean cityHasResearchStation(String target){
         return stations.contains(target);
     }

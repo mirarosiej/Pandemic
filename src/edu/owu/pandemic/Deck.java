@@ -25,6 +25,29 @@ public class Deck {
         return card;
     }
 
+    public Card getBottomNormalCard(){
+        int current = 0;
+
+        while (deck.get(current).getCardType() == Card.CardType.INFECTION){
+            current++;
+        }
+
+        Card card = deck.get(current);
+        deck.remove(current);
+        return card;
+    }
+
+    //shuffle the discard and put the cards back into the normal deck
+    public void shuffeBack(){
+        Collections.shuffle(discard);
+
+        for (Card card : discard){
+            deck.add(card);
+        }
+
+        discard = new ArrayList<Card>();
+    }
+
     //adding a card to the deck
     public void push(Card card){
         deck.add(card);
