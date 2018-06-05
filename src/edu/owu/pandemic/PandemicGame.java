@@ -55,11 +55,10 @@ public class PandemicGame{
                         }
                         if (response.equals("cubes")){
                             System.out.println("Getting the cube count");
-                            //HashMap<String, City> cities = gamestate.getCities();
-
-                           // for (City city : cities.values()){
-                          //      System.out.println(city + "" + city.getCubeCount());
-                            //}
+                            HashMap<String, City> cities = gamestate.getCities();
+                            for (City cit: cities.values()){
+                                System.out.println(cit.getName() + " has " + cit.getCubeCount() + " cubes");
+                            }
                         }
                         System.out.println("Would you like anything else");
                         response = reader.nextLine();

@@ -5,7 +5,7 @@ import java.util.HashMap;
 
 public class Player {
 
-    ArrayList<PlayerCard> hand = new ArrayList<>();
+    ArrayList<PlayerCard> hand = new ArrayList<PlayerCard>();
     String currentCity = "Atlanta"; //default start location
     enum Role {OPERATION, MEDIC, PLANNER, DISPATCHER, SPECIALIST, RESEARCHER, SCIENTIST}
     Role role;

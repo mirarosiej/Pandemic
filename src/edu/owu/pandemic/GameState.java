@@ -9,10 +9,10 @@ import java.util.*;
 
 public class GameState {
     private static HashMap<String, City> nodes = new HashMap<String, City>();
-    private static ArrayList<String> stations = new ArrayList<>();
+    private static ArrayList<String> stations = new ArrayList<String>();
     private Deck infectiondeck = new Deck();
     private static Deck playerdeck = new Deck();
-    ArrayList<Player> players = new ArrayList<>();
+    ArrayList<Player> players = new ArrayList<Player>();
 
     private int outbreak = 0;
     private int infectionrateindex = 0;
