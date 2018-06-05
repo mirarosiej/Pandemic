@@ -312,5 +312,7 @@ public class GameState {
         return playerdeck;
     }
 
+    public static void getCubes(){
 
+    }
 }

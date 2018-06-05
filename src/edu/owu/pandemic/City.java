@@ -43,7 +43,7 @@ public class City {
         return cubes.get(color);
     }
 
-    public int getCubeCount() {
+    public int getCubeCount(){
         return getCubeCount(this.color);
     }
 

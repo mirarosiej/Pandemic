@@ -34,7 +34,7 @@ public class PandemicGame{
                     response = reader.nextLine();
                     //cubes
                     //list how many cubes of each
-                    if (response.equals("yes")) {
+                    if (response.equals("y")) {
                         System.out.println("What information would you like?");
                         response = reader.nextLine();
                         if (response.equals("infectionrates")) {
@@ -53,6 +53,8 @@ public class PandemicGame{
                         }
                         if (response.equals("cubes")){
                             System.out.println("Getting the cube count");
+
+
                         }
                         System.out.println("Would you like anything else");
                         response = reader.nextLine();
@@ -199,7 +201,7 @@ public class PandemicGame{
                 }
                 gamestate.newTurn();
             }
-            looping = false;
+            //looping = false;
         }
     }
 }
