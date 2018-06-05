@@ -1,6 +1,7 @@
 package edu.owu.pandemic;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
 
 //Main Game
@@ -36,6 +37,7 @@ public class PandemicGame{
                     //list how many cubes of each
                     if (response.equals("y")) {
                         System.out.println("What information would you like?");
+                        System.out.print("Possible Info - {infectionRates, cures, outbreaks, researchStations, cubeCount} \n");
                         response = reader.nextLine();
                         if (response.equals("infectionrates")) {
                             System.out.println(gamestate.getInfectionrateindex());
@@ -53,12 +55,15 @@ public class PandemicGame{
                         }
                         if (response.equals("cubes")){
                             System.out.println("Getting the cube count");
+                            //HashMap<String, City> cities = gamestate.getCities();
 
-
+                           // for (City city : cities.values()){
+                          //      System.out.println(city + "" + city.getCubeCount());
+                            //}
                         }
                         System.out.println("Would you like anything else");
                         response = reader.nextLine();
-                        if (response.equals("no")){
+                        if (response.equals("n")){
                             responsebreak = false;
                         }
                     } else {
@@ -70,6 +75,11 @@ public class PandemicGame{
                 String discaredcard="";
                 player.drawCard(gamestate.getPlayerdeck());
                 player.drawCard(gamestate.getPlayerdeck());
+                /*for (Card card : player.getHand()){
+                    System.out.print(card.getCardInfoString() + ", ");
+                }
+                System.out.print("\n");*/
+
 
                 if (player.getHand().size() > 7){
                     for (int j=0; j < player.getHand().size()-7; j++){
@@ -82,7 +92,7 @@ public class PandemicGame{
                 for (int i = 0; i < 4; i++) {
                     System.out.print("Possible moves - {drive, directflight, charterflight, shuttleflight,\n" +
                             "buildresearchstation, treat, share, take, discover} \n");
-                    System.out.print("Choose your move: ");
+                    System.out.print("Player " + "Choose your move: ");
                     move = reader.nextLine();
 
                     if (move.equals("drive")) {
@@ -199,8 +209,9 @@ public class PandemicGame{
                     }
 
                 }
-                gamestate.newTurn();
+                //gamestate.newTurn();
             }
+            gamestate.newTurn();
             //looping = false;
         }
     }
